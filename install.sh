@@ -1,3 +1,5 @@
+#install Jenkins and Java-17
+
 #!/bin/bash
 sudo apt update -y
 wget -O - https://packages.adoptium.net/artifactory/api/gpg/key/public | tee /etc/apt/keyrings/adoptium.asc
@@ -12,13 +14,18 @@ sudo apt-get install jenkins -y
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 
+
 #install docker
 sudo apt-get update
 sudo apt-get install docker.io -y
 sudo usermod -aG docker ubuntu  
 newgrp docker
 sudo chmod 777 /var/run/docker.sock
+
+
+#install Sonarqube in a Docker container
 docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+
 
 #install trivy
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
